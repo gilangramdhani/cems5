@@ -6,9 +6,6 @@
 *.tmp
 .env
 
-# Database
-*.sql
-
 # IDEs
 .idea/
 .vscode/
