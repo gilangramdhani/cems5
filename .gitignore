@@ -1,0 +1,24 @@
+# Dependencies
+/vendor/
+
+# Docker files
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Environment and Logs
+*.log
+*.tmp
+.env
+
+# Database
+*.sql
+
+# IDEs
+.idea/
+.vscode/
+.trae/
+
+# OS files
+.DS_Store
+Thumbs.db

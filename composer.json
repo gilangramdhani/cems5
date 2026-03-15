@@ -1,0 +1,8 @@
+{
+    "require": {
+        "fusioncharts/fusionexport": "^1.2",
+        "mpdf/mpdf": "^8.0",
+		"sendinblue/api-v3-sdk": "6.x.x",
+        "guzzlehttp/guzzle": "^6.5"
+    }
+}

@@ -1,0 +1,53 @@
+h3 {
+	margin: 0;
+}
+.title {
+	margin-top: 50px;
+	font-family: Verdana;
+	text-align: center;
+}
+.separator {
+	color: #fff;
+}
+.company {
+	width: 500px;
+	font-family: Verdana;
+}
+.performance {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 100px;
+	height: 100px;
+	font-family: Verdana;
+	text-align: center;
+	color: #fff;
+	padding-top: 5px;
+}
+.bg-success {
+	background-color: #28C76F;
+}
+.bg-warning {
+	background-color: #FF9F43;
+}
+.bg-danger {
+	background-color: #EA5455;
+}
+.demo {
+	width: 100%;
+	height: 100%;
+	border: 1px solid #C0C0C0;
+	border-collapse: collapse;
+	padding: 5px;
+	font-family: Verdana;
+}
+.demo th {
+	border: 1px solid #C0C0C0;
+	padding: 5px;
+	background: #F0F0F0;
+}
+.demo td {
+	border: 1px solid #C0C0C0;
+	text-align: center;
+	padding: 5px;
+}

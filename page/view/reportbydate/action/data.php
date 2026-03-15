@@ -1,0 +1,51 @@
+<?php
+ob_start();
+session_start();
+if (isset($_SESSION['id'])) {
+	include '../../../config/db.php';
+	$q = date('Y-m-d', strtotime(input($_GET['q'])));
+	$cerobong = input($_GET['cerobong']);
+	$cat = input($_GET['cat']);
+	$prm = implode("','",json_decode(stripslashes($_GET['prm'])));
+	if ($cat <> 'all') {
+		$query = mysqli_query($con, "select avg(value) as y, hour(waktu) as x from data where parameter = '$cat' and cerobong_id = '$cerobong' and date_sub(waktu, interval 1 hour) and date(waktu) = date('$q') group by hour(waktu) order by hour(waktu) asc");
+		if (mysqli_num_rows($query) > 0) {
+			$response = array();
+			while ($data = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+				$a['x'] = 'Jam '.$data['x'];
+				$a['y'] = round($data['y'], 2);
+				array_push($response, $a);
+			}
+			echo json_encode($response);
+		}
+	}
+	if ($cat == 'all') {
+		$response = array();
+		$parameterallQuery = mysqli_query($con, "select * from parameter where parameter_code in ('".$prm."')");
+		$no = 0;
+		while ($parameterallData = mysqli_fetch_array($parameterallQuery, MYSQLI_ASSOC)) {
+			$no++;
+			$parameterall = $parameterallData['parameter_code'];
+			$query = mysqli_query($con, "select avg(value) as y from data where parameter = '$parameterall' and cerobong_id = '$cerobong' and date_sub(waktu, interval 1 hour) and date(waktu) = date('$q') group by hour(waktu) order by hour(waktu) asc");
+			if (mysqli_num_rows($query) > 0) {
+				$a['name'.$no] = $parameterallData['parameter_name'];
+				$a['type'.$no] = 'line';
+				while ($data = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+					$a['data'.$no][] = round($data['y'], 2);
+				}
+			}
+		}
+		$parameterwaktuQuery = mysqli_query($con, "select * from parameter where parameter_code in ('".$prm."') limit 1");
+		$parameterwaktuData = mysqli_fetch_array($parameterwaktuQuery, MYSQLI_ASSOC);
+		$parameterwaktu = $parameterwaktuData['parameter_code'];
+		$waktuQuery = mysqli_query($con, "select hour(waktu) as x from data where parameter = '$parameterwaktu' and cerobong_id = '$cerobong' and date_sub(waktu, interval 1 hour) and date(waktu) = date('$q') group by hour(waktu) order by hour(waktu) asc");
+		if (mysqli_num_rows($waktuQuery) > 0) {
+			while ($waktuData = mysqli_fetch_array($waktuQuery, MYSQLI_ASSOC)) {
+				$a['waktu'][] = 'Jam '.$waktuData['x'];
+			}
+		}
+		array_push($response, $a);
+		echo json_encode($response);
+	}
+}
+?>
