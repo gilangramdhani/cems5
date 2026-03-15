@@ -1,16 +1,1 @@
-# Dependencies
-/vendor/
-
-# Environment and Logs
-*.log
-*.tmp
-.env
-
-# IDEs
-.idea/
-.vscode/
-.trae/
-
-# OS files
-.DS_Store
-Thumbs.db
+# Empty gitignore to include everything
