@@ -1,11 +1,6 @@
 # Dependencies
 /vendor/
 
-# Docker files
-.dockerignore
-Dockerfile
-docker-compose.yml
-
 # Environment and Logs
 *.log
 *.tmp

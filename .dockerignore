@@ -1,0 +1,13 @@
+# Docker ignore
+.git
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose.yml
+vendor
+*.sql
+*.log
+*.tmp
+.idea
+.vscode
+.trae

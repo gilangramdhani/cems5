@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # PHP Apache Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cems5-app
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=db
+      - DB_USER=cems_user
+      - DB_PASS=cems_password
+      - DB_NAME=cems
+    depends_on:
+      - db
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/vendor # Don't overwrite vendor in container if it exists on host
+
+  # MariaDB Database Service
+  db:
+    image: mariadb:10.6
+    container_name: cems5-db
+    restart: always
+    environment:
+      - MARIADB_DATABASE=cems
+      - MARIADB_USER=cems_user
+      - MARIADB_PASSWORD=cems_password
+      - MARIADB_ROOT_PASSWORD=root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - cems5-db-data:/var/lib/mysql
+      # Automatically import SQL file on first startup
+      - ./cems.sql:/docker-entrypoint-initdb.d/cems.sql
+
+volumes:
+  cems5-db-data:
